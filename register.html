@@ -47,7 +47,7 @@
             margin-bottom: 5px;
         }
 
-        .form-group input, .form-group textarea {
+        .form-group input, .form-group textarea, .form-group select {
             width: calc(100% - 20px);
             padding: 10px;
             border: 1px solid #ccc;
@@ -105,13 +105,56 @@
             background-color: #ccc;
         }
 
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .popup button {
+            background-color: #101864;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #33398e;
+        }
+
+        .popup p {
+            margin: 0 0 10px 0;
+        }
+
+        .popup-bg {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
                 margin: 20px 10px;
             }
 
-            .form-group input, .form-group textarea, .form-group button {
+            .form-group input, .form-group textarea, .form-group select, .form-group button {
                 width: calc(100% - 15px);
             }
 
@@ -164,13 +207,29 @@
                     <input type="text" id="chitName" name="chitName">
                 </div>
                 <div class="form-group">
+                    <label for="ctype">Collection Type:</label>
+                    <select id="ctype" name="ctype" required>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="chitType">Chit Type:</label>
+                    <select id="chitType" name="chitType" required onchange="calculateChitValues()">
+                        <option value="50000">50000</option>
+                        <option value="100000">100000</option>
+                        <option value="200000">200000</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="yourMobileNumber">Your Mobile Number:</label>
-                    <input type="tel" id="yourMobileNumber" name="yourMobileNumber" pattern="[0-9]{10}" required>
+                    <input type="text" id="yourMobileNumber" name="yourMobileNumber" required>
                 </div>
                 <div class="form-group">
                     <label for="nomineeMobileNumber">Nominee Mobile Number:</label>
-                    <input type="tel" id="nomineeMobileNumber" name="nomineeMobileNumber" pattern="[0-9]{10}" required>
+                    <input type="text" id="nomineeMobileNumber" name="nomineeMobileNumber" required>
                 </div>
+                <input type="hidden" id="totalAmount" name="totalAmount"> <!-- Hidden input field for totalAmount -->
                 <div class="step-buttons">
                     <button type="button" onclick="prevStep()" class="btn">Previous</button>
                     <button type="button" onclick="nextStep()" class="btn">Next</button>
@@ -197,7 +256,7 @@
                 </div>
                 <div class="step-buttons">
                     <button type="button" onclick="prevStep()" class="btn">Previous</button>
-                    <button type="button" onclick="nextStep()" class="btn">Next</button>
+                    <button type="button"                     onclick="nextStep()" class="btn">Next</button>
                 </div>
             </div>
 
@@ -213,11 +272,11 @@
                 </div>
                 <div class="form-group">
                     <label for="yourPanCard">Your PAN Card:</label>
-                    <input type="number" id="yourPanCard" name="yourPanCard" required>
+                    <input type="text" id="yourPanCard" name="yourPanCard" required>
                 </div>
                 <div class="form-group">
                     <label for="nomineePanCard">Nominee PAN Card:</label>
-                    <input type="number" id="nomineePanCard" name="nomineePanCard" required>
+                    <input type="text" id="nomineePanCard" name="nomineePanCard" required>
                 </div>
                 <div class="step-buttons">
                     <button type="button" onclick="prevStep()" class="btn">Previous</button>
@@ -227,151 +286,192 @@
         </form>
     </div>
 
+    <div class="popup-bg"></div>
+    <div class="popup" id="popup">
+        <p id="popup-message"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+
     <!-- Firebase JavaScript SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-database.js"></script>
     <script>
-    // Firebase configuration
-    var firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "vcfs-cd728.firebaseapp.com",
-        databaseURL: "https://vcfs-cd728-default-rtdb.firebaseio.com",
-        projectId: "vcfs-cd728",
-        storageBucket: "vcfs-cd728.appspot.com",
-        messagingSenderId: "744948157621",
-        appId: "1:744948157621:web:39374c75d27aca983902fc"
-    };
-    
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    
-    // Reference to the 'register' node in the Firebase database
-    var registerRef = firebase.database().ref('register');
-    var usersRef = firebase.database().ref('users'); // Reference to 'users' node
-    
-    // Handle form steps
-    var currentStep = 0;
-    var steps = document.querySelectorAll('.step');
-    
-    function showStep(step) {
-        steps.forEach(function(s, index) {
-            s.classList.remove('active');
-            if (index === step) {
-                s.classList.add('active');
+        // Firebase configuration
+        var firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "vcfs-cd728.firebaseapp.com",
+            databaseURL: "https://vcfs-cd728-default-rtdb.firebaseio.com",
+            projectId: "vcfs-cd728",
+            storageBucket: "vcfs-cd728.appspot.com",
+            messagingSenderId: "744948157621",
+            appId: "1:744948157621:web:39374c75d27aca983902fc"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to the 'register' node in the Firebase database
+        var registerRef = firebase.database().ref('register');
+        var usersRef = firebase.database().ref('users'); // Reference to 'users' node
+
+        // Handle form steps
+        var currentStep = 0;
+        var steps = document.querySelectorAll('.step');
+
+        function showStep(step) {
+            steps.forEach(function(s, index) {
+                s.classList.remove('active');
+                if (index === step) {
+                    s.classList.add('active');
+                }
+            });
+        }
+
+        function showPopup(message) {
+            document.getElementById('popup-message').textContent = message;
+            document.querySelector('.popup-bg').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.querySelector('.popup-bg').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function nextStep() {
+            var inputs = steps[currentStep].querySelectorAll('input, textarea, select');
+            var isValid = true;
+
+            inputs.forEach(function(input) {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                    input.reportValidity();
+                }
+            });
+
+            if (isValid) {
+                if (currentStep === 1) {
+                    // Check if name and nomineeName are different
+                    var name = document.getElementById('name').value;
+                    var nomineeName = document.getElementById('nomineeName').value;
+                    if (name === nomineeName) {
+                        showPopup('Name and Nominee Name cannot be the same.');
+                        return;
+                    }
+                }
+                if (currentStep === 2) {
+                    // Check if mobile numbers are different
+                    var yourMobileNumber = document.getElementById('yourMobileNumber').value;
+                    var nomineeMobileNumber = document.getElementById('nomineeMobileNumber').value;
+                    if (yourMobileNumber === nomineeMobileNumber) {
+                        showPopup('Your Mobile Number and Nominee Mobile Number cannot be the same.');
+                        return;
+                    }
+                }
+
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
             }
-        });
-    }
-    
-    function nextStep() {
-        // Validate current step
-        var inputs = steps[currentStep].querySelectorAll('input, textarea');
-        var isValid = true;
-    
-        inputs.forEach(function(input) {
-            if (!input.checkValidity()) {
-                isValid = false;
-                input.reportValidity();
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
             }
-        });
-    
-        if (isValid && currentStep < steps.length - 1) {
-            currentStep++;
-            showStep(currentStep);
         }
-    }
-    
-    function prevStep() {
-        if (currentStep > 0) {
-            currentStep--;
-            showStep(currentStep);
+
+        // Function to calculate default values based on chitType
+        function calculateChitValues() {
+            var chitTypeSelect = document.getElementById('chitType');
+            var chitType = parseInt(chitTypeSelect.value);
+            var totalAmountSpan = document.getElementById('totalAmount');
+
+            // Set total amount based on chitType
+            totalAmountSpan.textContent = chitType;
         }
-    }
-    
-    // Function to handle form submission
-    document.getElementById('registrationForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
-    
-        // Get user input values
-        var name = document.getElementById('name').value;
-        var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-        var nomineeName = document.getElementById('nomineeName').value;
-        var chitName = document.getElementById('chitName').value;
-        var yourMobileNumber = document.getElementById('yourMobileNumber').value;
-        var nomineeMobileNumber = document.getElementById('nomineeMobileNumber').value;
-        var accountNumber = document.getElementById('accountNumber').value;
-        var ifscCode = document.getElementById('ifscCode').value;
-        var yourAddress = document.getElementById('yourAddress').value;
-        var nomineeAddress = document.getElementById('nomineeAddress').value;
-        var yourAadharProof = document.getElementById('yourAadharProof').value;
-        var nomineeAadharProof = document.getElementById('nomineeAadharProof').value;
-        var yourPanCard = document.getElementById('yourPanCard').value;
-        var nomineePanCard = document.getElementById('nomineePanCard').value;
-    
-        // Check additional conditions before registering
-        // 1. Check if name and nomineeName are different
-        if (name === nomineeName) {
-            alert('Name and Nominee Name cannot be the same.');
-            return;
-        }
-    
-        // 2. Check if mobile numbers are different
-        if (yourMobileNumber === nomineeMobileNumber) {
-            alert('Your Mobile Number and Nominee Mobile Number cannot be the same.');
-            return;
-        }
-    
-        // 3. Check if Aadhar proofs are different
-        if (yourAadharProof === nomineeAadharProof) {
-            alert('Your Aadhar Proof and Nominee Aadhar Proof cannot be the same.');
-            return;
-        }
-    
-        // 4. Check if PAN cards are different
-        if (yourPanCard === nomineePanCard) {
-            alert('Your PAN Card and Nominee PAN Card cannot be the same.');
-            return;
-        }
-    
-        // 5. Check if the email is already registered (assuming unique email constraint)
-        usersRef.orderByChild('email').equalTo(email).once('value', function(snapshot) {
-            if (snapshot.exists()) {
-                alert('Email already exists in users database.');
+
+        // Function to handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get user input values
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var nomineeName = document.getElementById('nomineeName').value;
+            var chitName = document.getElementById('chitName').value;
+            var ctype = document.getElementById('ctype').value;
+            var yourMobileNumber = document.getElementById('yourMobileNumber').value;
+            var nomineeMobileNumber = document.getElementById('nomineeMobileNumber').value;
+            var accountNumber = document.getElementById('accountNumber').value;
+            var ifscCode = document.getElementById('ifscCode').value;
+            var yourAddress = document.getElementById('yourAddress').value;
+            var nomineeAddress = document.getElementById('nomineeAddress').value;
+            var yourAadharProof = document.getElementById('yourAadharProof').value;
+            var nomineeAadharProof = document.getElementById('nomineeAadharProof').value;
+            var yourPanCard = document.getElementById('yourPanCard').value;
+            var nomineePanCard = document.getElementById('nomineePanCard').value;
+            var chitType = document.getElementById('chitType').value;
+            var totalAmount = parseInt(chitType); // Get total amount from chitType
+
+            // Additional validation check for Aadhar Proof and PAN Card details
+            if (yourAadharProof === nomineeAadharProof) {
+                showPopup('Your Aadhar Proof and Nominee Aadhar Proof cannot be the same.');
                 return;
-            } else {
-                // Proceed with registration if all conditions are met
-    
-                // Push the user data to the Firebase database
-                registerRef.push({
-                    name: name,
-                    email: email,
-                    password: password,
-                    nomineeName: nomineeName,
-                    chitName: chitName,
-                    yourMobileNumber: yourMobileNumber,
-                    nomineeMobileNumber: nomineeMobileNumber,
-                    accountNumber: accountNumber,
-                    ifscCode: ifscCode,
-                    yourAddress: yourAddress,
-                    nomineeAddress: nomineeAddress,
-                    yourAadharProof: yourAadharProof,
-                    nomineeAadharProof: nomineeAadharProof,
-                    yourPanCard: yourPanCard,
-                    nomineePanCard: nomineePanCard
-                }).then(function() {
-                    // Redirect to success page after successful registration
-                    window.location.href = 'success.html';
-                }).catch(function(error) {
-                    console.error('Error registering user:', error);
-                    alert('Error registering user. Please try again.');
-                });
             }
+            if (yourPanCard === nomineePanCard) {
+                showPopup('Your PAN Card and Nominee PAN Card cannot be the same.');
+                return;
+            }
+
+            // Check if the email is already registered (assuming unique email constraint)
+            usersRef.orderByChild('email').equalTo(email).once('value', function(snapshot) {
+                if (snapshot.exists()) {
+                    showPopup('Email already exists in users database.');
+                    return;
+                } else {
+                    // Proceed with registration if all conditions are met
+
+                    // Push the user data to the Firebase database
+                    registerRef.push({
+                        name: name,
+                        email: email,
+                        password: password,
+                        nomineeName: nomineeName,
+                        chitName: chitName,
+                        ctype: ctype,
+                        yourMobileNumber: yourMobileNumber,
+                        nomineeMobileNumber: nomineeMobileNumber,
+                        accountNumber: accountNumber,
+                        ifscCode: ifscCode,
+                        yourAddress: yourAddress,
+                        nomineeAddress: nomineeAddress,
+                        yourAadharProof: yourAadharProof,
+                        nomineeAadharProof: nomineeAadharProof,
+                        yourPanCard: yourPanCard,
+                        nomineePanCard: nomineePanCard,
+                        chitType: chitType,
+                        totalAmount: totalAmount,
+                        dueAmount: 0, // Default due amount
+                        balanceAmount: totalAmount, // Default balance amount based on chitType
+                        paidAmount: 0 // Default paid amount
+                    }).then(function() {
+                        // Redirect to success page after successful registration
+                        window.location.href = 'success.html';
+                    }).catch(function(error) {
+                        console.error('Error registering user:', error);
+                        showPopup('Error registering user. Please try again.');
+                    });
+                }
+            });
         });
-    });
-    
-    // Initialize the first step
-    showStep(currentStep);
-    </script>    
+
+        // Initialize the first step
+        showStep(currentStep);
+    </script>
 </body>
 </html>
 
