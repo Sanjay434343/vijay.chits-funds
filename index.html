@@ -6,7 +6,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Vcf</title>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+      </style>
     <style>
         /* https://coolors.co/2c3e50-e74c3c-ffffff-3498db-95a3b3 */
 
@@ -171,7 +182,7 @@
         }
         
         .splash .container {
-          padding-top: 25vh; /* No JS fallback */
+          padding-top: 22vh; /* No JS fallback */
           padding-bottom: 25vh; /* No JS fallback */
         }
         
@@ -188,7 +199,7 @@
           font-weight: 400;
           font-style: normal;
           font-size: 2em;
-          margin-bottom: 1em;
+          margin-bottom: 15px;
           text-align: center;
         }
         
@@ -208,8 +219,8 @@
           font-size: 1em;
           border-radius: 30px;
           color: white;
-          background-color: #E74C3C;
-          width: 100px;
+          background-color: #221666;
+          width: 30%;
           text-decoration: none;
           padding: 10px 10px;
           margin: 0 auto 1em;
@@ -232,6 +243,10 @@
         
         .intro {
           background-color: #1b1287;
+          font-family: "Dosis", sans-serif;
+  font-weight: 100;
+  text-align: center;
+  font-style: normal;
           color: #fff;
         }
         
@@ -252,7 +267,7 @@
         .features .col-3 {
           margin: 3em auto;
           width: 100%;
-          color: white;
+          color: rgb(50, 50, 50);
         }
         
         .portfolio {
@@ -276,8 +291,9 @@
         
         .contact form {
           background-color: #f0f0f0;
+          margin: 15px 15px;
           border-radius: 4px;
-          border-top: 8px solid #E74C3C;
+          border-top: 8px solid #5e3ce7;
           box-shadow: 0 1px 2px rgba(0,0,0,.15);
           padding: 1em;
         }
@@ -296,7 +312,7 @@
         }
         
         .contact form input[type="submit"] {
-          background-color: #E74C3C;
+          background-color: #291668;
           border-radius: 0;
           color: #fff;
           padding: 1em;
@@ -308,10 +324,11 @@
         ======================== */
         
         .footer {
-          background-color: #2C3E50;
+          background-color: #101864;
           color:  #fff;
-          font-size: 1.5em;
+          font-size: 18px;
           text-align: center;
+          text-decoration: none;
         }
         
         .footer .container {
@@ -321,6 +338,7 @@
         .footer a {
           color: #fff;
           margin-right: 1em;
+          text-decoration: none;
         }
         
         .footer a:last-of-type {
@@ -401,6 +419,43 @@
             width: 110px;
             margin-top: 10px;
         }
+
+        .nav-list{
+          margin-right: 15px;
+        }
+
+        .splash .ecd {
+          position: relative;
+          font-size: 5em;
+          border-radius: 0px;
+          text-decoration: none;
+        
+          padding: 10px 10px;
+          margin-top: 30px;
+          align-items: center;
+          text-align: center;
+          color: #221666; /* Change color to violet */
+      }
+    
+      .clogo{
+        width: 50px;
+        border-radius: 30px;
+      }
+
+      .dbutton{
+        position: relative;
+        font-size: 1em;
+        border-radius: 30px;
+        color: white;
+        background-color: #221666;
+        width: 40%;
+        border: none;
+        text-decoration: none;
+        padding: 10px 10px;
+        margin: 0 auto 1em;
+        align-items: center;
+        text-align: center;
+      }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -416,7 +471,7 @@
             <ul class="nav-list">
                 <li><a href="#about">About</a></li>
                 <li><a href="#features">Features</a></li>
-                <li><a href="#portfolio">License</a></li>
+                <li><a href="#features">Lisence</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -426,15 +481,22 @@
         <div class="container">
             <img class="profile-image" src="icon.png" alt="profile picture">
             <h1>Vijay Chit and Fund</h1>
-            <a href="#about" class="continue">More</a>
+            <a href="register.html" class="continue">Register Now</a>
+           
+           <center><a href="#about" class="ecd"><img src="down.png" alt=""></a></center>
+              
+              
             </div>
     </section>
     
     <section class="intro" id="about">
         <div class="container">
             <h2>About</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae ultricies metus, nec faucibus enim.</p>
-        </div>
+            <p>Welcome to Vijay Chit and Fund, a premier provider of web and app services for managing chit funds. As a government-registered company, we specialize in delivering seamless digital solutions that empower our clients to efficiently track and manage their chit fund operations. Our robust web services ensure real-time monitoring and transparent transactions, while our intuitive mobile app keeps you updated on-the-go. At Vijay Chit and Fund, we combine technological innovation with regulatory compliance to offer secure and reliable solutions tailored to meet your financial needs.</p>
+            <img id="image" src="lic.jpg" alt="Example Image" width="200">
+            <br><br>
+            <button class="dbutton" onclick="downloadImage()">Download Image</button>
+          </div>
     </section>
     
     <section class="features" id="features">
@@ -476,9 +538,9 @@
     <footer class="footer">
         <div class="container">
             <p>Connect with me</p>
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-            <a href="#">LinkedIn</a>
+            <a href="#"> <img src="https://img.freepik.com/free-psd/instagram-application-logo_23-2151544090.jpg?w=740&t=st=1718356161~exp=1718356761~hmac=5c0b5484a869c5b9f6f8a5bc8f582fd260549ae8538bebe5635bdc6f3a4b6845" alt="instagram" class="clogo"></a>
+            <a href="#"><img src="https://img.freepik.com/free-psd/social-media-logo-design_23-2151296987.jpg?t=st=1718356283~exp=1718359883~hmac=ccd13952db12234eb4d398af4904ef8d1f736b809f5bf932eb2bf54b83754ded&w=740" alt="facebook" class="clogo"></a>
+            <a href="#"><img src="https://img.freepik.com/premium-vector/circle-whatsapp-logotype-icon-social-media-app-network-application-popular-editorial-brand-vector-illustration_913857-391.jpg?w=740" alt="whatsapp" class="clogo"></a>
         </div>
     </footer>
 
@@ -511,5 +573,19 @@
             });
         });
     </script>
+    <script>
+      function downloadImage() {
+          // Select the image element
+          const image = document.getElementById('image');
+          
+          // Create a temporary anchor element
+          const a = document.createElement('a');
+          a.href = image.src;
+          a.download = 'lic.jpg'; // File name to be downloaded
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+      }
+  </script>
 </body>
 </html>
