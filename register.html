@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            margin: 8px 8px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .form-group button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="nomineeName">Nominee Name:</label>
+                <input type="text" id="nomineeName" name="nomineeName">
+            </div>
+            <div class="form-group">
+                <label for="chitName">Chit Name:</label>
+                <input type="text" id="chitName" name="chitName">
+            </div>
+            <div class="form-group">
+                <label for="yourMobileNumber">Your Mobile Number:</label>
+                <input type="tel" id="yourMobileNumber" name="yourMobileNumber" pattern="[0-9]{10}">
+            </div>
+            <div class="form-group">
+                <label for="nomineeMobileNumber">Nominee Mobile Number:</label>
+                <input type="tel" id="nomineeMobileNumber" name="nomineeMobileNumber" pattern="[0-9]{10}">
+            </div>
+            <div class="form-group">
+                <label for="accountNumber">Account Number:</label>
+                <input type="number" id="accountNumber" name="accountNumber">
+            </div>
+            <div class="form-group">
+                <label for="ifscCode">IFSC Code:</label>
+                <input type="text" id="ifscCode" name="ifscCode">
+            </div>
+            <div class="form-group">
+                <label for="yourAddress">Your Address:</label>
+                <textarea id="yourAddress" name="yourAddress"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="nomineeAddress">Nominee Address:</label>
+                <textarea id="nomineeAddress" name="nomineeAddress"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="yourAadharProof">Your Aadhar Proof:</label>
+                <input type="number" id="yourAadharProof" name="yourAadharProof">
+            </div>
+            <div class="form-group">
+                <label for="nomineeAadharProof">Nominee Aadhar Proof:</label>
+                <input type="number" id="nomineeAadharProof" name="nomineeAadharProof">
+            </div>
+            <div class="form-group">
+                <label for="yourPanCard">Your PAN Card:</label>
+                <input type="number" id="yourPanCard" name="yourPanCard">
+            </div>
+            <div class="form-group">
+                <label for="nomineePanCard">Nominee PAN Card:</label>
+                <input type="number" id="nomineePanCard" name="nomineePanCard">
+            </div>
+            <div class="form-group">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-database.js"></script>
+    <script>
+        // Firebase configuration
+        var firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "vcfs-cd728.firebaseapp.com",
+            databaseURL: "https://vcfs-cd728-default-rtdb.firebaseio.com",
+            projectId: "vcfs-cd728",
+            storageBucket: "vcfs-cd728.appspot.com",
+            messagingSenderId: "744948157621",
+            appId: "1:744948157621:web:39374c75d27aca983902fc"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to the 'register' node in the Firebase database
+        var registerRef = firebase.database().ref('register');
+
+        // Function to handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get user input values
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var nomineeName = document.getElementById('nomineeName').value;
+            var chitName = document.getElementById('chitName').value;
+            var yourMobileNumber = document.getElementById('yourMobileNumber').value;
+            var nomineeMobileNumber = document.getElementById('nomineeMobileNumber').value;
+            var accountNumber = document.getElementById('accountNumber').value;
+            var ifscCode = document.getElementById('ifscCode').value;
+            var yourAddress = document.getElementById('yourAddress').value;
+            var nomineeAddress = document.getElementById('nomineeAddress').value;
+            var yourAadharProof = document.getElementById('yourAadharProof').value;
+            var nomineeAadharProof = document.getElementById('nomineeAadharProof').value;
+            var yourPanCard = document.getElementById('yourPanCard').value;
+            var nomineePanCard = document.getElementById('nomineePanCard').value;
+
+            // Push the user data to the Firebase database
+            registerRef.push({
+                name: name,
+                email: email,
+                password: password,
+                nomineeName: nomineeName,
+                chitName: chitName,
+                yourMobileNumber: yourMobileNumber,
+                nomineeMobileNumber: nomineeMobileNumber,
+                accountNumber: accountNumber,
+                ifscCode: ifscCode,
+                yourAddress: yourAddress,
+                nomineeAddress: nomineeAddress,
+                yourAadharProof: yourAadharProof,
+                nomineeAadharProof: nomineeAadharProof,
+                yourPanCard: yourPanCard,
+                nomineePanCard: nomineePanCard
+            }).then(function() {
+                // Clear form fields after successful registration
+                document.getElementById('registrationForm').reset();
+                alert('Registration successful!');
+            }).catch(function(error) {
+                console.error('Error registering user:', error);
+                alert('Error registering user. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
