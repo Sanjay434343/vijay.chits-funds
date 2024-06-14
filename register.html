@@ -3,28 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dosis:wght@200..800&family=Spicy+Rice&display=swap" rel="stylesheet">
     <title>Registration Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #101864;
             margin: 0;
             padding: 0;
         }
 
         .container {
+            font-family: "Dosis", sans-serif;
             max-width: 500px;
             margin: 50px auto;
-            background-color: #fff;
+            background-color: #f0f0f0;
             padding: 20px;
-            margin: 8px 8px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+            font-weight: 100;
+            color: #101864;
         }
 
         .container h2 {
+            font-family: "Bebas Neue", sans-serif;
             text-align: center;
             margin-bottom: 20px;
+            color: #101864;
+            font-weight: 1000;
+            font-size: 30px;
         }
 
         .form-group {
@@ -33,6 +43,8 @@
 
         .form-group label {
             font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
         }
 
         .form-group input, .form-group textarea {
@@ -42,95 +54,175 @@
             border-radius: 5px;
             box-sizing: border-box;
             margin-top: 5px;
+            color: #101864;
         }
 
         .form-group textarea {
             resize: vertical;
         }
 
-        .form-group button {
+        .btn {
             width: calc(100% - 20px);
             padding: 10px;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
-            color: #fff;
+            background-color: #101864;
+            color: #ffffff;
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
         }
 
         .form-group button:hover {
-            background-color: #0056b3;
+            background-color: #33398e;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .navigation-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .navigation-buttons button {
+            background-color: #fff;
+            color: #101864;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .navigation-buttons button:hover {
+            background-color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 20px 10px;
+            }
+
+            .form-group input, .form-group textarea, .form-group button {
+                width: calc(100% - 15px);
+            }
+
+            .navigation-buttons button {
+                padding: 10px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Registration Form</h2>
+        <h2>VCF Registration Form</h2>
         <form id="registrationForm">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+            <!-- Step 1 -->
+            <div class="step active">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="step-buttons">
+                    <button type="button" onclick="nextStep()" class="btn">Next</button>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+
+            <!-- Step 2 -->
+            <div class="step">
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="nomineeName">Nominee Name:</label>
+                    <input type="text" id="nomineeName" name="nomineeName">
+                </div>
+                <div class="step-buttons">
+                    <button type="button" onclick="prevStep()" class="btn">Previous</button>
+                    <button type="button" onclick="nextStep()" class="btn">Next</button>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+
+            <!-- Step 3 -->
+            <div class="step">
+                <div class="form-group">
+                    <label for="chitName">Chit Name:</label>
+                    <input type="text" id="chitName" name="chitName">
+                </div>
+                <div class="form-group">
+                    <label for="yourMobileNumber">Your Mobile Number:</label>
+                    <input type="tel" id="yourMobileNumber" name="yourMobileNumber" pattern="[0-9]{10}" required>
+                </div>
+                <div class="form-group">
+                    <label for="nomineeMobileNumber">Nominee Mobile Number:</label>
+                    <input type="tel" id="nomineeMobileNumber" name="nomineeMobileNumber" pattern="[0-9]{10}" required>
+                </div>
+                <div class="step-buttons">
+                    <button type="button" onclick="prevStep()" class="btn">Previous</button>
+                    <button type="button" onclick="nextStep()" class="btn">Next</button>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="nomineeName">Nominee Name:</label>
-                <input type="text" id="nomineeName" name="nomineeName">
+
+            <!-- Step 4 -->
+            <div class="step">
+                <div class="form-group">
+                    <label for="accountNumber">Account Number:</label>
+                    <input type="number" id="accountNumber" name="accountNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="ifscCode">IFSC Code:</label>
+                    <input type="text" id="ifscCode" name="ifscCode" required>
+                </div>
+                <div class="form-group">
+                    <label for="yourAddress">Your Address:</label>
+                    <textarea id="yourAddress" name="yourAddress" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="nomineeAddress">Nominee Address:</label>
+                    <textarea id="nomineeAddress" name="nomineeAddress" required></textarea>
+                </div>
+                <div class="step-buttons">
+                    <button type="button" onclick="prevStep()" class="btn">Previous</button>
+                    <button type="button" onclick="nextStep()" class="btn">Next</button>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="chitName">Chit Name:</label>
-                <input type="text" id="chitName" name="chitName">
-            </div>
-            <div class="form-group">
-                <label for="yourMobileNumber">Your Mobile Number:</label>
-                <input type="tel" id="yourMobileNumber" name="yourMobileNumber" pattern="[0-9]{10}">
-            </div>
-            <div class="form-group">
-                <label for="nomineeMobileNumber">Nominee Mobile Number:</label>
-                <input type="tel" id="nomineeMobileNumber" name="nomineeMobileNumber" pattern="[0-9]{10}">
-            </div>
-            <div class="form-group">
-                <label for="accountNumber">Account Number:</label>
-                <input type="number" id="accountNumber" name="accountNumber">
-            </div>
-            <div class="form-group">
-                <label for="ifscCode">IFSC Code:</label>
-                <input type="text" id="ifscCode" name="ifscCode">
-            </div>
-            <div class="form-group">
-                <label for="yourAddress">Your Address:</label>
-                <textarea id="yourAddress" name="yourAddress"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="nomineeAddress">Nominee Address:</label>
-                <textarea id="nomineeAddress" name="nomineeAddress"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="yourAadharProof">Your Aadhar Proof:</label>
-                <input type="number" id="yourAadharProof" name="yourAadharProof">
-            </div>
-            <div class="form-group">
-                <label for="nomineeAadharProof">Nominee Aadhar Proof:</label>
-                <input type="number" id="nomineeAadharProof" name="nomineeAadharProof">
-            </div>
-            <div class="form-group">
-                <label for="yourPanCard">Your PAN Card:</label>
-                <input type="number" id="yourPanCard" name="yourPanCard">
-            </div>
-            <div class="form-group">
-                <label for="nomineePanCard">Nominee PAN Card:</label>
-                <input type="number" id="nomineePanCard" name="nomineePanCard">
-            </div>
-            <div class="form-group">
-                <button type="submit">Register</button>
+
+            <!-- Step 5 -->
+            <div class="step">
+                <div class="form-group">
+                    <label for="yourAadharProof">Your Aadhar Proof:</label>
+                    <input type="number" id="yourAadharProof" name="yourAadharProof" required>
+                </div>
+                <div class="form-group">
+                    <label for="nomineeAadharProof">Nominee Aadhar Proof:</label>
+                    <input type="number" id="nomineeAadharProof" name="nomineeAadharProof" required>
+                </div>
+                <div class="form-group">
+                    <label for="yourPanCard">Your PAN Card:</label>
+                    <input type="number" id="yourPanCard" name="yourPanCard" required>
+                </div>
+                <div class="form-group">
+                    <label for="nomineePanCard">Nominee PAN Card:</label>
+                    <input type="number" id="nomineePanCard" name="nomineePanCard" required>
+                </div>
+                <div class="step-buttons">
+                    <button type="button" onclick="prevStep()" class="btn">Previous</button>
+                    <button type="submit" class="btn">Register</button>
+                </div>
             </div>
         </form>
     </div>
@@ -139,70 +231,111 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-database.js"></script>
     <script>
-        // Firebase configuration
-        var firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "vcfs-cd728.firebaseapp.com",
-            databaseURL: "https://vcfs-cd728-default-rtdb.firebaseio.com",
-            projectId: "vcfs-cd728",
-            storageBucket: "vcfs-cd728.appspot.com",
-            messagingSenderId: "744948157621",
-            appId: "1:744948157621:web:39374c75d27aca983902fc"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        // Reference to the 'register' node in the Firebase database
-        var registerRef = firebase.database().ref('register');
-
-        // Function to handle form submission
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            // Get user input values
-            var name = document.getElementById('name').value;
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            var nomineeName = document.getElementById('nomineeName').value;
-            var chitName = document.getElementById('chitName').value;
-            var yourMobileNumber = document.getElementById('yourMobileNumber').value;
-            var nomineeMobileNumber = document.getElementById('nomineeMobileNumber').value;
-            var accountNumber = document.getElementById('accountNumber').value;
-            var ifscCode = document.getElementById('ifscCode').value;
-            var yourAddress = document.getElementById('yourAddress').value;
-            var nomineeAddress = document.getElementById('nomineeAddress').value;
-            var yourAadharProof = document.getElementById('yourAadharProof').value;
-            var nomineeAadharProof = document.getElementById('nomineeAadharProof').value;
-            var yourPanCard = document.getElementById('yourPanCard').value;
-            var nomineePanCard = document.getElementById('nomineePanCard').value;
-
-            // Push the user data to the Firebase database
-            registerRef.push({
-                name: name,
-                email: email,
-                password: password,
-                nomineeName: nomineeName,
-                chitName: chitName,
-                yourMobileNumber: yourMobileNumber,
-                nomineeMobileNumber: nomineeMobileNumber,
-                accountNumber: accountNumber,
-                ifscCode: ifscCode,
-                yourAddress: yourAddress,
-                nomineeAddress: nomineeAddress,
-                yourAadharProof: yourAadharProof,
-                nomineeAadharProof: nomineeAadharProof,
-                yourPanCard: yourPanCard,
-                nomineePanCard: nomineePanCard
-            }).then(function() {
-                // Clear form fields after successful registration
-                document.getElementById('registrationForm').reset();
-                alert('Registration successful!');
-            }).catch(function(error) {
-                console.error('Error registering user:', error);
-                alert('Error registering user. Please try again.');
-            });
+    // Firebase configuration
+    var firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "vcfs-cd728.firebaseapp.com",
+        databaseURL: "https://vcfs-cd728-default-rtdb.firebaseio.com",
+        projectId: "vcfs-cd728",
+        storageBucket: "vcfs-cd728.appspot.com",
+        messagingSenderId: "744948157621",
+        appId: "1:744948157621:web:39374c75d27aca983902fc"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    
+    // Reference to the 'register' node in the Firebase database
+    var registerRef = firebase.database().ref('register');
+    
+    // Handle form steps
+    var currentStep = 0;
+    var steps = document.querySelectorAll('.step');
+    
+    function showStep(step) {
+        steps.forEach(function(s, index) {
+            s.classList.remove('active');
+            if (index === step) {
+                s.classList.add('active');
+            }
         });
-    </script>
+    }
+    
+    function nextStep() {
+        // Validate current step
+        var inputs = steps[currentStep].querySelectorAll('input, textarea');
+        var isValid = true;
+    
+        inputs.forEach(function(input) {
+            if (!input.checkValidity()) {
+                isValid = false;
+                input.reportValidity();
+            }
+        });
+    
+        if (isValid && currentStep < steps.length - 1) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    }
+    
+    function prevStep() {
+        if (currentStep > 0) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    }
+    
+    // Function to handle form submission
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+    
+        // Get user input values
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var nomineeName = document.getElementById('nomineeName').value;
+        var chitName = document.getElementById('chitName').value;
+        var yourMobileNumber = document.getElementById('yourMobileNumber').value;
+        var nomineeMobileNumber = document.getElementById('nomineeMobileNumber').value;
+        var accountNumber = document.getElementById('accountNumber').value;
+        var ifscCode = document.getElementById('ifscCode').value;
+        var yourAddress = document.getElementById('yourAddress').value;
+        var nomineeAddress = document.getElementById('nomineeAddress').value;
+        var yourAadharProof = document.getElementById('yourAadharProof').value;
+        var nomineeAadharProof = document.getElementById('nomineeAadharProof').value;
+        var yourPanCard = document.getElementById('yourPanCard').value;
+        var nomineePanCard = document.getElementById('nomineePanCard').value;
+    
+        // Push the user data to the Firebase database
+        registerRef.push({
+            name: name,
+            email: email,
+            password: password,
+            nomineeName: nomineeName,
+            chitName: chitName,
+            yourMobileNumber: yourMobileNumber,
+            nomineeMobileNumber: nomineeMobileNumber,
+            accountNumber: accountNumber,
+            ifscCode: ifscCode,
+            yourAddress: yourAddress,
+            nomineeAddress: nomineeAddress,
+            yourAadharProof: yourAadharProof,
+            nomineeAadharProof: nomineeAadharProof,
+            yourPanCard: yourPanCard,
+            nomineePanCard: nomineePanCard
+        }).then(function() {
+            // Redirect to success page after successful registration
+            window.location.href = 'success.html';
+        }).catch(function(error) {
+            console.error('Error registering user:', error);
+            alert('Error registering user. Please try again.');
+        });
+    });
+    
+    // Initialize the first step
+    showStep(currentStep);
+</script>    
 </body>
 </html>
+
