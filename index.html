@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dosis:wght@200..800&family=Spicy+Rice&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Vcf</title>
     <style>
       .material-symbols-outlined {
@@ -21,6 +22,15 @@
         'opsz' 24
       }
       </style>
+      <style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        </style>
     <style>
         /* https://coolors.co/2c3e50-e74c3c-ffffff-3498db-95a3b3 */
 
@@ -232,6 +242,7 @@
           margin: 0 auto 1em;
           align-items: center;
           text-align: center;
+          
         }
         
         
@@ -254,7 +265,8 @@
   text-align: center;
   font-style: normal;
           color: #fff;
-         
+         border-bottom-left-radius: 30px;
+         border-bottom-right-radius: 30px;
         }
         
         .intro a, .intro a:hover, .intro a:focus, .intro a:active, .intro a:visited {
@@ -269,17 +281,20 @@
           border-radius: 50px;
           margin: 0 auto 1em;
           max-width: 200px;
+          
         }
         
         .features .col-3 {
           margin: 3em auto;
           width: 100%;
           color: rgb(50, 50, 50);
+          
         }
         
         .portfolio {
           background-color: #1b1287;
           color: #fff;
+          
         }
         
         .gallery .gallery-image {
@@ -303,6 +318,7 @@
           border-top: 8px solid #5e3ce7;
           box-shadow: 0 1px 2px rgba(0,0,0,.15);
           padding: 1em;
+          border-radius: 30px;
         }
         
         .contact form input, .contact form textarea {
@@ -320,7 +336,7 @@
         
         .contact form input[type="submit"] {
           background-color: #291668;
-          border-radius: 0;
+          border-radius: 30px;
           color: #fff;
           padding: 1em;
           text-transform: uppercase;
@@ -336,6 +352,8 @@
           font-size: 18px;
           text-align: center;
           text-decoration: none;
+          border-top-right-radius: 30px;
+          border-top-left-radius: 30px;
         }
         
         .footer .container {
@@ -439,14 +457,14 @@
       .clogo{
         width: 50px;
         border-radius: 30px;
+        margin-bottom: 10px;
       }
 
       .dbutton{
         position: relative;
-        font-size: 1em;
         border-radius: 30px;
         color: white;
-        background-color: #8b79f2;
+        background-color: #27238f;
         max-width: 200px;
         width: 50%;
         border: none;
@@ -456,7 +474,88 @@
         align-items: center;
         text-align: center;
       }
+       
+      
+      .address{
+        text-align: center;
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+        padding: 20px;
+        background-color: #121d7d;
+        border-radius: 30px;
+      }
+
+      .material-symbols-outlined{
+        background-color: #27238f;
+        border-radius: 30px;
+        padding: 10px;
+        text-align: center;
+        max-width: 200px;
+        width: 100%;
+        margin-top: 5px;
+      }
+
+      .bank{
+        margin-top: 20px;
+      }
+
+      /* Modal styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Position fixed to overlay on the screen */
+  z-index: 1; /* Set modal above other elements */
+  left: 0;
+  top: 40%;
+  width: 100%;
+  height: 100%;
+
+  overflow: auto; /* Enable scrolling if content exceeds viewport */
+}
+
+.modal-content {
+  margin: auto; /* Center image vertically and horizontally */
+  display: block;
+  max-width: 80%; /* Set maximum width for the image */
+  max-height: 80%; /* Set maximum height for the image */
+}
+
+.close {
+  color: #fff;
+  position: absolute;
+  top: 15px;
+  right: 32px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #ccc;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  margin: 20px; /* Add some space around the button */
+  padding: 10px 10px; /* Padding inside the button */
+  font-size: 16px;
+  max-width: 200px;
+  width: 60%;
+  background-color: #27238f; /* Blue button color */
+  color: #fff; /* White text color */
+  border: none; /* Remove border */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 30px;
+}
+
+button:hover {
+  background-color: #2d2a85; /* Darker blue on hover */
+}
+
     </style>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -471,7 +570,7 @@
             <ul class="nav-list">
                 <li><a href="#about" style="color: #091156; font-weight:bold;">About</a></li>
                 <li><a href="#features" style="color: #091156; font-weight:bold;">Features</a></li>
-                <li><a href="lic.png" download="license.png" style="color: #091156; font-weight:bold;">Features</a></li>
+                <li><a href="#bankaddress" style="color: #091156; font-weight:bold;">Bank & Address Deatils</a></li>
                 <li><a href="register.html" style="color: #091156; font-weight:bold;">Register Now</a>
                 <li><a href="#contact" style="color: #091156; font-weight:bold;">Contact</a></li>
 
@@ -497,7 +596,7 @@
             <p>Welcome to Vijay Chit and Fund, a premier provider of web and app services for managing chit funds. As a government-registered company, we specialize in delivering seamless digital solutions that empower our clients to efficiently track and manage their chit fund operations. Our robust web services ensure real-time monitoring and transparent transactions, while our intuitive mobile app keeps you updated on-the-go. At Vijay Chit and Fund, we combine technological innovation with regulatory compliance to offer secure and reliable solutions tailored to meet your financial needs.</p>
             <img id="image" src="lic.jpg" alt="Example Image" width="200">
             <br><br>
-            <button class="dbutton" id="lic" onclick="downloadImage()">Download</button>
+            <button class="dbutton" id="lic" onclick="downloadImage()"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg></button>
           </div>
     </section>
     
@@ -543,10 +642,62 @@
             <a href="https://www.instagram.com/vijaychitsandfunds_pollachi?igsh=dXVhaW0xcTlkd2Nu"> <img src="https://img.freepik.com/free-psd/instagram-application-logo_23-2151544090.jpg?w=740&t=st=1718356161~exp=1718356761~hmac=5c0b5484a869c5b9f6f8a5bc8f582fd260549ae8538bebe5635bdc6f3a4b6845" alt="instagram" class="clogo"></a>
             <a href="https://www.facebook.com/profile.php?id=61560691452735&mibextid=ZbWKwL"><img src="https://img.freepik.com/free-psd/social-media-logo-design_23-2151296987.jpg?t=st=1718356283~exp=1718359883~hmac=ccd13952db12234eb4d398af4904ef8d1f736b809f5bf932eb2bf54b83754ded&w=740" alt="facebook" class="clogo"></a>
             <a href="https://wa.me/918667046259"><img src="https://img.freepik.com/premium-vector/circle-whatsapp-logotype-icon-social-media-app-network-application-popular-editorial-brand-vector-illustration_913857-391.jpg?w=740" alt="whatsapp" class="clogo"></a>
-        </div>
+      <div class="address" id="#bankaddress">
+       <p><b>Address Information</b><br>
+       1/177/6 Sri Venkedeasha Garden Alampalyam Road Rasakkapalayam Road Pollachi-642002</p>
+       <a href="https://goo.gl/maps/o3AMmN7aGwah4TzB9" class="location">
+       <span class="material-symbols-outlined">
+        pin_drop
+        </span>
+      </a>
+    </div> 
+    <div class="address">
+      <p class="bank"><b>Bank Details</b><br>
+      Name:&nbsp;City Union Bank<br>
+      A/C No:&nbsp;500101011274636<br>
+      Ifsc:&nbsp;CIUB0000074<br>
+      UPI Id:&nbsp;mk5283511@oksbi
+      </p>
+      <button id="openModalBtn"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z"/></svg></button>
+
+<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>
+
+
+    </div>
+      </div> 
+          </div>
     </footer>
 
     <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('imageModal');
+        var modalImg = document.getElementById('modalImage');
+        var btn = document.getElementById('openModalBtn');
+        var span = document.getElementsByClassName('close')[0];
+    
+        btn.onclick = function() {
+            modal.style.display = 'block'; // Display the modal
+            modalImg.src = 'qr.jpg'; // Set your image source here
+        }
+    
+        span.onclick = function() {
+            modal.style.display = 'none'; // Hide the modal when the close button (×) is clicked
+        }
+    
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none'; // Hide the modal when clicking outside the modal content
+            }
+        }
+    });
+
+    
+
+
+
         $(document).ready(function() {
             $('.nav-toggle').click(function() {
                 $('.nav-list').toggle();
