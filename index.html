@@ -276,7 +276,7 @@
         .features img {
           display: block;
           background-color: #393939;
-          width: 250px;
+          width: 200px;
           height: 160px;
           border-radius: 50px;
           margin: 0 auto 1em;
@@ -616,26 +616,43 @@ Another Section
     padding: 5px 5px ;
   }
 
-  .features-1 .col-4 {
-    width: 80.33333%;
+  .feature-section {
+    margin-bottom: 100px;
+    color: #091156;
+  }
+
+  .feature-section:hover {
+    margin-bottom: 100px;
+    color: rgb(84, 42, 237);
   }
   
-
-
-  @media (min-width: 196px) {
-      
-    .features-1 .col-4 {
-      width: 100.33333%;
-      
-    }
- 
-  }
-  .mocup{
+  .feature-container {
     width: 100%;
     max-width: 1000px;
+    margin: 0 auto;
   }
-
-  .mocup-button{
+  
+  .feature-column {
+    width: 100.33333%;
+    margin: 0 auto;
+  }
+  
+  .feature-image {
+    width: 100%;
+    max-width: 10000px;
+    background-color: transparent;
+  }
+  
+  .download-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .download-container p {
+    margin: 5px 0;
+  }
+  
+  .download-button {
     background-color: #091156;
     padding: 15px 50px;
     text-decoration: none;
@@ -644,13 +661,20 @@ Another Section
     text-transform: none;
     margin-top: 10px;
   }
-
-  .mocup-button:hover{
+  
+  .download-button:hover {
     text-decoration: none;
     color: white;
     background-color: rgb(84, 42, 237);
+   
   }
-
+  
+  @media (max-width: 768px) {
+    .feature-column {
+      width: 100%;
+    }
+  }
+  
   
 </style>
 
@@ -727,23 +751,24 @@ Another Section
       </div>
   </section>
 
-  <section class="features-1" id="features-1" style="margin-bottom:100px;">
-    <div class="container-1">
-     
-        <div class="col-4">
-        
-       <center> <img src="mocup.png" alt="feature 2" style="background-color:transparent;" class="mocup"></center>  
-       <div class="donwnload-container"> <center>  <p><b>Demo Account</b></p>
-        <p><b>Email:&nbsp;</b>example@gmail.com</p>
-        <p><b>Password:&nbsp;</b>example123</p><br>
-        <a href="https://github.com/Sanjay434343/vcf/releases/download/v1.0.0/app-release.apk" class="mocup-button">Download Vcf App</a>
-      </center>
+  <div class="feature-section" style="margin-bottom:100px;">
+    <div class="feature-container">
+      <div class="feature-column">
+        <center>
+          <img src="mocup.png" alt="feature 2" class="feature-image">
+        </center>
+        <div class="download-container">
+          <center>
+            <p><b>Demo Account</b></p>
+            <p><b>Email:&nbsp;</b>example@gmail.com</p>
+            <p><b>Password:&nbsp;</b>example123</p><br>
+            <a href="https://github.com/Sanjay434343/vcf/releases/download/v1.0.0/app-release.apk" class="download-button">Download Vcf App</a>
+          </center>
+        </div>
+      </div>
     </div>
-</div>
-       
-    </div>
-</section>
-
+  </div>
+  
 
 
 
