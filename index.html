@@ -287,14 +287,15 @@
         .features .col-3 {
           margin: 3em auto;
           width: 100%;
-          color: rgb(50, 50, 50);
+          color: rgb(157, 142, 188);
+          
           
         }
         
         .portfolio {
           background-color: #1b1287;
           color: #fff;
-          
+          margin-bottom: 300px;
         }
         
         .gallery .gallery-image {
@@ -417,6 +418,7 @@
             float: left;
             margin: 2em 0;
             width: 33.33333%;
+            
           }
           
           .gallery .gallery-image {
@@ -554,7 +556,72 @@ button:hover {
   background-color: #2d2a85; /* Darker blue on hover */
 }
 
-    </style>
+/* ========================
+Another Section
+======================== */
+
+.another-section {
+  padding: 2em 0;
+  background-color: #e9ecef;
+  text-align: center;
+}
+
+.another-section h2 {
+  font-size: 2em;
+  margin-bottom: 1em;
+  color: #343a40;
+}
+
+.another-section p {
+  font-size: 1em;
+  color: #6c757d;
+  padding: 0 1em;
+}
+
+
+
+
+
+</style>
+<style>
+  .video-section {
+      padding: 5em 0;
+      background-color: #1b1f6a;
+      text-align: center;
+      border-radius: 30px;
+   
+  }
+
+  .video-wrapper {
+      position: relative;
+      overflow: hidden;
+      width: 100%; /* Full width of the parent container */
+      max-width: 250px; /* Set a max-width for the video container */
+      margin: 0 auto; /* Center the container */
+      padding: 0 1em; /* Adjust padding to align from left and right */
+      padding: 10px 10px;
+     
+      height: auto; /* Remove fixed height to fit the GIF */
+      z-index: 1;
+  }
+
+  .loop-gif {
+      display: block; /* Ensures the GIF is a block element */
+      width: 100%;
+      height: auto; /* Maintains aspect ratio */
+      object-fit: contain; /* Ensures the entire GIF fits within the container */
+  }
+
+  .bk{
+
+    padding: 5px 5px ;
+  }
+</style>
+
+
+
+
+  
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -614,16 +681,32 @@ button:hover {
               <p>We have web services to track the chit.</p>
           </div>
           <div class="col-3">
-              <img src="notify.png" alt="feature 3">
+              <img src="notify.png  " alt="feature 3">
               <h3>App Notifications</h3>
               <p>We will notify you daily about your due amount.</p>
           </div>
       </div>
   </section>
-  
-    
-   
-    
+  <div class="bk">
+  <section class="video-section" id="video">
+    <div class="container">
+        <h2 style="color: #f9f9fb; font-weight:bold;">App Demo</h2>
+        <div class="video-wrapper">
+            <img class="loop-gif" src="mocup.gif" alt="Looping GIF">
+        </div>
+        <a href="https://github.com/Sanjay434343/vcf/releases/download/v1.0.0/app-release.apk" class="location">
+          <span class="material-symbols-outlined" style="color: white;">
+            download
+           </span>
+         </a>
+    </div>
+</section>
+</div>
+
+
+
+
+
   <section class="contact" id="contact">
     <div class="container">
         <h2>Contact</h2>
