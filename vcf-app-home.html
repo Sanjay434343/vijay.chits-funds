@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>VCF App Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1041;
+            margin: 0;
+            padding: 0;
+            padding-top: 60px; /* Add padding to prevent content from overlapping with fixed header */
+        }
+        .header {
+            background-color: #f0f1ff;
+            color: #1a1041;
+            font-weight: bold;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed; /* Fix the header at the top */
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure the header is above other content */
+        }
+        .header .title {
+            font-size: 24px;
+        }
+        .header .logout-btn {
+            color: #091156;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 30px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: #f0f1ff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 20px;
+        }
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #091156;
+            font-weight: 400;
+        }
+        .card p {
+            margin: 5px 0;
+            font-size: 25px;
+            font-weight: 1000;
+            color: #091156 ;
+        }
+        .material-symbols-outlined {
+            background-color:#091156 ;
+            padding: 10px 10px;
+            border-radius: 50px;
+            color: white;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001; /* Ensure modal is above everything */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            overflow: auto;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .qr-code-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #091156;
+            padding: 10px 25px;
+            border: none;
+            color: #ffffff;
+            font-weight: 500;
+            border-radius: 30px;
+            position: relative;
+            top: 10px;
+        }
+    </style>
+</head><style>
+    .qr-code-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    canvas {
+        width: 200px;
+        height: 200px;
+        border: 2px solid #091156;
+        border-radius: 8px;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1001; /* Ensure modal is above everything */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        overflow: auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <header class="header">
+        <a href="profile.html" class="profile"><span class="material-symbols-outlined">
+            account_circle
+            </span></a>
+        <div class="title">VCF</div>
+        <a class="logout-btn" id="logoutBtn"><span class="material-symbols-outlined">
+            logout
+            </span></a>
+    </header>
+    <div class="container">
+        <div class="grid-container" id="userDataContainer">
+            <!-- User data cards will be displayed here -->
+        </div>
+    </div>
+
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>User Information</h2>
+            <p id="userInfo"></p>
+            <div class="qr-code-container">
+                <canvas id="qrcode"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <!-- QR Code Generation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious"></script>
+
+    <!-- Your Firebase Configuration -->
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyCBwd_D0GQKTHVEQN70rRtnnPoc5L6MQOs",
+            authDomain: "vcfs-cd728.firebaseapp.com",
+            databaseURL: "https://vcfs-cd728-default-rtdb.firebaseio.com",
+            projectId: "vcfs-cd728",
+            storageBucket: "vcfs-cd728.appspot.com",
+            messagingSenderId: "744948157621",
+            appId: "1:744948157621:web:39374c75d27aca983902fc"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Get the user email from localStorage
+        var userEmail = localStorage.getItem('userEmail');
+
+        if (userEmail) {
+            // Reference to the Users node in the Firebase database
+            var usersRef = firebase.database().ref('Users');
+            usersRef.orderByChild('email').equalTo(userEmail).once('value', function(snapshot) {
+                if (snapshot.exists()) {
+                    var userData = snapshot.val();
+                    var userDataContainer = document.getElementById('userDataContainer');
+
+                    // Display each user's data in separate cards
+                    Object.keys(userData).forEach(function(key) {
+                        var user = userData[key];
+
+                        // Create cards for each piece of information
+                        var nameCard = document.createElement('div');
+                        nameCard.classList.add('card');
+                        nameCard.innerHTML = '<h2>Name</h2><p>' + user.name + '</p>';
+                        userDataContainer.appendChild(nameCard);
+
+                        var dueAmountCard = document.createElement('div');
+                        dueAmountCard.classList.add('card');
+                        dueAmountCard.innerHTML = `
+                            <h2>Due Amount</h2>
+                            <p>${user.dueAmount}</p>
+                            <button class="open-modal-btn">Pay</button>
+                        `;
+                        userDataContainer.appendChild(dueAmountCard);
+
+                        var totalAmountCard = document.createElement('div');
+                        totalAmountCard.classList.add('card');
+                        totalAmountCard.innerHTML = '<h2>Total Amount</h2><p>' + user.totalAmount + '</p>';
+                        userDataContainer.appendChild(totalAmountCard);
+
+                        var ctypeCard = document.createElement('div');
+                        ctypeCard.classList.add('card');
+                        ctypeCard.innerHTML = '<h2>Type</h2><p>' + user.ctype + '</p>';
+                        userDataContainer.appendChild(ctypeCard);
+
+                        var balanceAmountCard = document.createElement('div');
+                        balanceAmountCard.classList.add('card');
+                        balanceAmountCard.innerHTML = '<h2>Balance Amount</h2><p>' + user.balanceAmount + '</p>';
+                        userDataContainer.appendChild(balanceAmountCard);
+
+                        var paidAmountCard = document.createElement('div');
+                        paidAmountCard.classList.add('card');
+                        paidAmountCard.innerHTML = '<h2>Paid Amount</h2><p>' + user.paidAmount + '</p>';
+                        userDataContainer.appendChild(paidAmountCard);
+
+                        // Add event listener for modal opening
+                        var openModalBtn = dueAmountCard.querySelector('.open-modal-btn');
+                        openModalBtn.addEventListener('click', function() {
+                            var modal = document.getElementById('myModal');
+                            var modalContent = modal.querySelector('.modal-content');
+                            var userInfo = document.getElementById('userInfo');
+                            userInfo.textContent = `Name: ${user.name}, Due Amount: ${user.dueAmount}`;
+
+                            // Generate QR Code
+                            var qrContainer = modalContent.querySelector('#qrcode');
+                            qrContainer.innerHTML = ''; // Clear previous QR code if any
+
+                            // Construct UPI Payment
+                            var upiId = 'mk5383511@oksbi'; // Replace with your UPI ID
+                            var amount = user.dueAmount; // Replace with the due amount
+                            var note = `Payment for ${user.name}`; // Note for payment
+
+                            var qr = new QRious({
+                                element: qrContainer,
+                                value: `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(user.name)}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`
+                            });
+
+                            // Display modal
+                            modal.style.display = 'block';
+                        });
+                    });
+                } else {
+                    alert('No data found for the logged-in user.');
+                }
+            }).catch(function(error) {
+                console.error('Error querying the database:', error);
+                alert('Error querying the database. Please try again.');
+            });
+        } else {
+            window.location.href = 'login.html'; // Redirect to login if no user is logged in
+        }
+
+        // Close modal functionality
+        var closeModal = document.getElementsByClassName('close')[0];
+        closeModal.addEventListener('click', function() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of modal content
+        window.onclick = function(event) {
+            var modal = document.getElementById('myModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('userEmail'); // Remove the email from localStorage
+            window.location.href = 'login.html'; // Redirect to login page
+        });
+    </script>
+</body>
+</html>
