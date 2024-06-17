@@ -613,9 +613,45 @@ Another Section
   }
 
   .bk{
-
     padding: 5px 5px ;
   }
+
+  .features-1 .col-4 {
+    width: 80.33333%;
+  }
+  
+
+
+  @media (min-width: 196px) {
+      
+    .features-1 .col-4 {
+      width: 100.33333%;
+      
+    }
+ 
+  }
+  .mocup{
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  .mocup-button{
+    background-color: #091156;
+    padding: 15px 50px;
+    text-decoration: none;
+    color: white;
+    border-radius: 30px;
+    text-transform: none;
+    margin-top: 10px;
+  }
+
+  .mocup-button:hover{
+    text-decoration: none;
+    color: white;
+    background-color: rgb(84, 42, 237);
+  }
+
+  
 </style>
 
 
@@ -637,7 +673,7 @@ Another Section
             <ul class="nav-list">
                 <li><a href="#about" style="color: #091156; font-weight:bold;">About</a></li>
                 <li><a href="#features" style="color: #091156; font-weight:bold;">Features</a></li>
-                <li><a href="#bankaddress" style="color: #091156; font-weight:bold;">Bank & Address Deatils</a></li>
+                <li><a href="#bankandaddress" style="color: #091156; font-weight:bold;">Bank & Address Deatils</a></li>
                 <li><a href="register.html" style="color: #091156; font-weight:bold;">Register Now</a>
                 <li><a href="#contact" style="color: #091156; font-weight:bold;">Contact</a></li>
                 <li><a href="https://github.com/Sanjay434343/vcf/releases/download/v1.0.0/app-release.apk" style="color: #091156; font-weight:bold;">Download App</a></li>
@@ -686,24 +722,27 @@ Another Section
               <h3>App Notifications</h3>
               <p>We will notify you daily about your due amount.</p>
           </div>
+
+        
       </div>
   </section>
-  <div class="bk">
-  <section class="video-section" id="video">
-    <div class="container">
-        <h2 style="color: #f9f9fb; font-weight:bold;">App Demo</h2>
-        <div class="video-wrapper">
-            <img class="loop-gif" src="mocup.gif" alt="Looping GIF">
-        </div>
-        <a href="https://github.com/Sanjay434343/vcf/releases/download/v1.0.0/app-release.apk" class="location">
-          <span class="material-symbols-outlined" style="color: white;">
-            download
-           </span>
-         </a>
+
+  <section class="features-1" id="features-1" style="margin-bottom:100px;">
+    <div class="container-1">
+     
+        <div class="col-4">
+        
+       <center> <img src="mocup.png" alt="feature 2" style="background-color:transparent;" class="mocup"></center>  
+       <div class="donwnload-container"> <center>  <p><b>Demo Account</b></p>
+        <p><b>Email:&nbsp;</b>example@gmail.com</p>
+        <p><b>Password:&nbsp;</b>example123</p><br>
+        <a href="https://github.com/Sanjay434343/vcf/releases/download/v1.0.0/app-release.apk" class="mocup-button">Download Vcf App</a>
+      </center>
+    </div>
+</div>
+       
     </div>
 </section>
-</div>
-
 
 
 
@@ -720,7 +759,7 @@ Another Section
     </div>
 </section>
     
-    <footer class="footer">
+    <footer class="footer" id="bankandaddress">
         <div class="container">
             <p>Connect with me</p>
             <a href="https://www.instagram.com/vijaychitsandfunds_pollachi?igsh=dXVhaW0xcTlkd2Nu"> <img src="https://img.freepik.com/free-psd/instagram-application-logo_23-2151544090.jpg?w=740&t=st=1718356161~exp=1718356761~hmac=5c0b5484a869c5b9f6f8a5bc8f582fd260549ae8538bebe5635bdc6f3a4b6845" alt="instagram" class="clogo"></a>
