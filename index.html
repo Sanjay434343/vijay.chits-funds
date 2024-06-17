@@ -757,59 +757,71 @@ Another Section
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        var modal = document.getElementById('imageModal');
-        var modalImg = document.getElementById('modalImage');
-        var btn = document.getElementById('openModalBtn');
-        var span = document.getElementsByClassName('close')[0];
-    
-        btn.onclick = function() {
-            modal.style.display = 'block'; // Display the modal
-            modalImg.src = 'qr.jpg'; // Set your image source here
-        }
-    
-        span.onclick = function() {
-            modal.style.display = 'none'; // Hide the modal when the close button (×) is clicked
-        }
-    
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none'; // Hide the modal when clicking outside the modal content
-            }
-        }
-    });
-
-    
-
-
-
-        $(document).ready(function() {
-            $('.nav-toggle').click(function() {
-                $('.nav-list').toggle();
-            });
-
-            $(window).scroll(function() {
-                if ($(window).scrollTop() > 50) {
-                    $('nav').addClass('sticky');
-                } else {
-                    $('nav').removeClass('sticky');
-                }
-            });
-
-            // Hide navbar initially on smaller screens
-            if ($(window).width() < 768) {
-                $('.nav-list').hide();
-            }
-
-            // Show navbar on resize if wider than 768px
-            $(window).resize(function() {
-                if ($(window).width() >= 768) {
-                    $('.nav-list').show();
-                } else {
-                    $('.nav-list').hide();
-                }
-            });
-        });
-    </script>
+          var modal = document.getElementById('imageModal');
+          var modalImg = document.getElementById('modalImage');
+          var btn = document.getElementById('openModalBtn');
+          var span = document.getElementsByClassName('close')[0];
+  
+          btn.onclick = function() {
+              modal.style.display = 'block'; // Display the modal
+              modalImg.src = 'qr.jpg'; // Set your image source here
+          }
+  
+          span.onclick = function() {
+              modal.style.display = 'none'; // Hide the modal when the close button (×) is clicked
+          }
+  
+          window.onclick = function(event) {
+              if (event.target == modal) {
+                  modal.style.display = 'none'; // Hide the modal when clicking outside the modal content
+              }
+          }
+      });
+  
+      $(document).ready(function() {
+          var navList = $('.nav-list');
+          var navToggle = $('.nav-toggle');
+          
+          navToggle.click(function() {
+              navList.toggle();
+          });
+  
+          $(window).scroll(function() {
+              if ($(window).scrollTop() > 50) {
+                  $('nav').addClass('sticky');
+              } else {
+                  $('nav').removeClass('sticky');
+              }
+          });
+  
+          // Hide navbar initially on smaller screens
+          if ($(window).width() < 768) {
+              navList.hide();
+          }
+  
+          // Show navbar on resize if wider than 768px
+          $(window).resize(function() {
+              if ($(window).width() >= 768) {
+                  navList.show();
+              } else {
+                  navList.hide();
+              }
+          });
+  
+          // Close nav when clicking anywhere on the screen
+          $(document).click(function(event) {
+              if (!$(event.target).closest('.nav-list, .nav-toggle').length) {
+                  navList.hide();
+              }
+          });
+  
+          // Close nav when scrolling
+          $(window).scroll(function() {
+              navList.hide();
+          });
+      });
+  </script>
+  
     <script>
       function downloadImage() {
           // Select the image element
